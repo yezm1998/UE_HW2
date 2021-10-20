@@ -7,6 +7,7 @@
 #include "Launch.generated.h"
 class USpringArmComponent;
 class AProjectile;
+
 UCLASS()
 class NETSHOOT_API ALaunch : public AActor
 {
@@ -21,9 +22,9 @@ protected:
 	virtual void BeginPlay() override;
 	//UPROPERTY(VisibleAnywhere, Category = "Body")
 		//USpringArmComponent* LaunchBody;
-	UPROPERTY(BlueprintReadOnly, Category = "UI")
+	UPROPERTY(Replicated,BlueprintReadOnly, Category = "UI")
 	int ShootCountTime;
-	UPROPERTY(BlueprintReadOnly, Category = "UI")
+	UPROPERTY(Replicated,BlueprintReadOnly, Category = "UI")
 	int GameCountTime;
 	UPROPERTY(BlueprintReadOnly, Category = "UI")
 	bool visible;
@@ -35,5 +36,5 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	void ShowNumber();
+	void ShowNumber(AProjectile* a);
 };

@@ -5,7 +5,7 @@
 #include "GameFrameWork/SpringArmComponent.h"
 #include "TimerManager.h"
 #include "Projectile.h"
-
+#include "Net/UnrealNetwork.h"
 // Sets default values
 ALaunch::ALaunch()
 {
@@ -16,6 +16,9 @@ ALaunch::ALaunch()
 	visible = false;
 	//LaunchBody = CreateDefaultSubobject<USpringArmComponent>(TEXT("LaunchBody"));
 	SetReplicates(true);
+	bReplicates = true;
+
+
 }
 
 // Called when the game starts or when spawned
@@ -33,13 +36,18 @@ void ALaunch::Tick(float DeltaTime)
 }
 
 void ALaunch::Shoot() {
-	AProjectile* Projectile1 = GetWorld()->SpawnActor<AProjectile>(        //第七种方法
-		ProjectileType,
-		GetActorLocation(),   //FireLocation是生成子弹地方的Socket 
-		//FRotator(0, 60, 180)
-		GetActorRotation()
-		);
-	Projectile1->LaunchProjectile(0);
+	if (GetLocalRole() == ROLE_Authority) {
+		AProjectile* Projectile1 = GetWorld()->SpawnActor<AProjectile>(        //第七种方法
+			ProjectileType,
+			GetActorLocation(),   //FireLocation是生成子弹地方的Socket 
+			//FRotator(0, 60, 180)
+			GetActorRotation()
+			);
+		//Projectile1->SetLaunch(this);
+		Projectile1->LaunchProjectile(1);
+		
+	}
+	
 }
 
 void ALaunch::CutTime() {
@@ -48,8 +56,10 @@ void ALaunch::CutTime() {
 		GetWorldTimerManager().ClearTimer(TimerHandle_TimeCount);
 		return;
 	}
-	--ShootCountTime;
-	--GameCountTime;
+	//if (GetLocalRole() == ROLE_Authority) {
+		--ShootCountTime;
+		--GameCountTime;
+	//}
 	if (GameCountTime==0) {
 		visible = true;
 	}
@@ -60,7 +70,15 @@ void ALaunch::CutTime() {
 	}
 }
 
-void ALaunch::ShowNumber() {
+void ALaunch::ShowNumber(AProjectile* a) {
 	//UE_LOG(LogTemp, Warning, TEXT("gametime: %s"), *FString::SanitizeFloat(GameCountTime));
-	
+	a->Destroy(); //Destroy(a);
+}
+
+void ALaunch::GetLifetimeReplicatedProps(TArray<FLifetimeProperty >& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(ALaunch, ShootCountTime);
+	DOREPLIFETIME(ALaunch, GameCountTime);
+	//DOREPLIFETIME_CONDITION(ALaunch, ShootCountTime, COND_InitialOnly);
 }

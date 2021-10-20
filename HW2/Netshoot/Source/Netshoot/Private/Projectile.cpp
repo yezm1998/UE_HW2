@@ -4,7 +4,7 @@
 #include "Projectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"        //蓝图中也可以找到ProjectileMovement这个组件
 #include "Components/SphereComponent.h"
-
+#include "Launch.h"
 // Sets default values
 AProjectile::AProjectile()
 {
@@ -17,7 +17,9 @@ AProjectile::AProjectile()
 	MyCollisionSphere->InitSphereRadius(100);
 	MyCollisionSphere->SetCollisionProfileName("Trigger");
 	RootComponent = MyCollisionSphere;
-
+	//SetReplicates(true);
+	//SetReplicateMovement(true);
+	
 }
 
 // Called when the game starts or when spawned
@@ -37,7 +39,7 @@ void AProjectile::Tick(float DeltaTime)
 
 
 void AProjectile::LaunchProjectile(float Speed) {
-	FVector fv(-1000, 0, 1000);
+	FVector fv(-100, 0, 100);
 	ProjectileMovementComponent->SetVelocityInLocalSpace(fv * Speed);	//设置速度，因为是矢量所以乘向前的向量
 	ProjectileMovementComponent->Activate();	//可以飞行了
 }
@@ -47,8 +49,15 @@ void AProjectile::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, clas
 	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("shoot!!!"));
-
-		//Destroy();
+		if(OtherComp->ComponentHasTag("ground"))
+			Destroy();
 	}
 }
 
+void AProjectile::Finish(){
+	l->ShowNumber(this);
+}
+
+void AProjectile::SetLaunch(ALaunch* ll) {
+	l = ll;
+}
