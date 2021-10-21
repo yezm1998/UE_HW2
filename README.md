@@ -14,6 +14,13 @@
 
 - 命中飞盘，飞盘消失同时发射者得分加一，同时将得分信息复制到所有客户端保持分数信息一致。
 
-- 对局剩余时间为0，弹出结算UI，并对背景模糊化处理。
+  ![](E:\github\UE_HW2\jpg\score.PNG)
 
-  ![endui](E:\github\UE_HW2\jpg\endui.png)
+- 对局剩余时间为0，弹出结算UI显示用户名和得分，获胜者名字前添加winner字样，并对背景模糊化处理。
+
+  ![endui](E:\github\UE_HW2\jpg\endui2.png)
+
+### 演示视频链接
+分别演示了飞盘静止和运动两种情况的效果
+链接：https://pan.baidu.com/s/1VrRS0VR4_FzqfaJk8n5ktA 
+提取码：1024
