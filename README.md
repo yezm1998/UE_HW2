@@ -10,15 +10,15 @@
 
 - 添加倒计时UI功能：显示当前对局剩余时间以及下一次轮盘发射时间（右上角）。
 
-  ![gameui](E:\github\UE_HW2\jpg\gameui.png)
+  ![gameui](.\jpg\gameui.png)
 
 - 命中飞盘，飞盘消失同时发射者得分加一，同时将得分信息复制到所有客户端保持分数信息一致。
 
-  ![](E:\github\UE_HW2\jpg\score.PNG)
+  ![](.\jpg\score.PNG)
 
 - 对局剩余时间为0，弹出结算UI显示用户名和得分，获胜者名字前添加winner字样，并对背景模糊化处理。
 
-  ![endui](E:\github\UE_HW2\jpg\endui2.png)
+  ![endui](.\jpg\endui2.png)
 
 ### 演示视频链接
 分别演示了飞盘静止和运动两种情况的效果
