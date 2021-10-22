@@ -63,3 +63,5 @@ HW2/Netshoot/Intermediate/*
 HW2/Netshoot/Plugins/*/Intermediate/*
 # Cache files for the editor to use
 HW2/Netshoot/DerivedDataCache/*
+
+HW2/Netshoot/win64打包.zip

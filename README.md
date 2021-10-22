@@ -21,6 +21,7 @@
   ![endui](./jpg/endui2.PNG)
 
 ### 演示视频链接
-分别演示了飞盘静止和运动两种情况的效果
+分别演示了飞盘静止和运动两种情况的效果，以及win64的打包程序
+
 链接：https://pan.baidu.com/s/1VrRS0VR4_FzqfaJk8n5ktA 
 提取码：1024
